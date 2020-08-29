@@ -5,7 +5,7 @@ var crypto = require('crypto');
 // var movie = require('../models/movie');
 // var mail = require('../models/mail');
 // var comment = require('../models/comment');
-// const init_token = 'TKL02o';
+const init_token = 'TKL02o';
 
 
 /* GET users listing. */
@@ -30,8 +30,8 @@ router.post('/login', function (req, res, next) {
             // res.json(userSave[0]._id)
             // var token_after = md5.update(token_before).digest('hex')
             // var token_after = getMD5Password(userSave[0]._id);
-
-            res.json({status: 0,  data:{user:userSave._id},message: "用户登录成功"})
+            var token_after = getMD5Password(userSave[0]._id);
+            res.json({status: 0, data: {token: token_after, user: userSave}, message: "用户登录1成功"})
         } else {
             res.json({status: 1, message: "用户名或者密码错误"});
 
@@ -87,7 +87,72 @@ router.post('/support', function (req, res, next) {
 router.post('/findPassword', function (req, res, next) {
 //需要输入用户的邮箱信息和手机信息，同时可以更新密码
 //这里须有返回两个情况，一个是req.body.repassword存在时，另一个是repassword不存在时
-//这个接口同时用于密码的重置，需要用户登陆
+//这个接口同时用于密码的重置，需要用户登录
+    if (req.body.repassword) {
+        // 当存在时需要验证其登陆情况或者验证其code
+        if (req.body.token) {
+            //当存在code登录状态时，验证其状态
+            if (!req.body.user_id) {
+                res.json({status: 1, message: "用户登录错误"})
+            }
+            if (!req.body.password) {
+                res.json({status: 1, message: "用户密码错误"})
+            }
+            if (req.body.token == getMD5Password(req.body.user_id)) {
+                user.findOne({_id: req.body.user_id}, {password: req.body.password}, function (err, checkUser) {
+                    if (checkUser) {
+                        user.update({_id: req.body.user_id}, {password: req.body.password}, function (err, userUpdate) {
+                            if (err) {
+                                res.json({status: 1, message: "更改错误", data: err})
+                            }
+                            res.json({status: 0, message: "更改成功", data: userUpdate})
+                        })
+                    } else {
+                        res.json({status: 1, message: "用户密码错误"})
+                    }
+                })
+            } else {
+                res.json({status: 1, message: "用户登陆错误"})
+            }
+        } else {
+            //不存在code时 直接验证mail和phone
+            user.findUserPassword(req.body.username, req.body.userMail, req.body.userPhone, function (err, userFound) {
+                if (userFound.length != 0) {
+                    user.update({_id: userFound[0]._id}, {password: req.body.repassword}, function (err, userUpdate) {
+                        if (err) {
+                            res.json({status: 1, message: "更改错误",data:err})
+                        }
+                        res.json({status: 0, message: "更改成功", data: userUpdate})
+                    })
+                } else {
+                    res.json({status: 1, message: "信息错误"})
+                }
+            })
+        }
+    } else {
+        //这里只是验证mail和phone，返回验证成功提示和提交的字段，用于之后改密码的操作
+        if (!req.body.username) {
+            res.json({status: 1, message: "用户名为空"})
+        }
+        if (!req.body.userMail) {
+            res.json({status: 1, message: "用户邮箱为空"})
+        }
+        if (!req.body.userPhone) {
+            res.json({status: 1, message: "用户电话为空"})
+        }
+
+        user.findUserPassword(req.body.username, req.body.userMail, req.body.userPhone, function (err, userFound) {
+            if (userFound.length != 0) {
+                res.json({
+                    status: 0,
+                    message: "验证成功,请修改密码",
+                    data: {username: req.body.username, userMail: req.body.userMail, userPhone: req.body.userPhone}
+                })
+            }else{
+                res.json({status:1,messgae:"信息错误"})
+            }
+        })
+    }
 });
 //用户发送站内信
 router.post('/sendEmail', function (req, res, next) {
@@ -97,7 +162,7 @@ router.post('/sendEmail', function (req, res, next) {
 //获取MD5的值
 function getMD5Password(id) {
     var md5 = crypto.createHash('md5');
-    var token_before = id + init_token
+    var token_before = id + init_token;
     // res.json(userSave[0]._id)
     return md5.update(token_before).digest('hex')
 }
