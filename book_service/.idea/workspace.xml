@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c85656c-04c0-473f-b9e0-ccfac0956402" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/models/article.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/mail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/movie.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/recommend.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/comment.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/comment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +47,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
@@ -72,7 +82,14 @@
       <workItem from="1598601655938" duration="2103000" />
       <workItem from="1598661243544" duration="18259000" />
       <workItem from="1598833868594" duration="13429000" />
-      <workItem from="1598921446154" duration="2211000" />
+      <workItem from="1598921446154" duration="8899000" />
+      <workItem from="1599008211956" duration="7958000" />
+      <workItem from="1599016770944" duration="7748000" />
+      <workItem from="1599093925641" duration="6854000" />
+      <workItem from="1599179929807" duration="15493000" />
+      <workItem from="1599268009662" duration="9639000" />
+      <workItem from="1599297183386" duration="599000" />
+      <workItem from="1599440067567" duration="13734000" />
     </task>
     <servers />
   </component>
@@ -96,9 +113,9 @@
       <screen x="0" y="0" width="2560" height="1392" />
     </state>
     <state x="930" y="456" key="jetbrains.nodejs.interpreters-dialog/0.0.2560.1392@0.0.2560.1392" timestamp="1598597344457" />
-    <state x="859" y="305" width="840" height="1034" key="search.everywhere.popup" timestamp="1598596814462">
+    <state x="859" y="305" width="840" height="1034" key="search.everywhere.popup" timestamp="1599204125775">
       <screen x="0" y="0" width="2560" height="1392" />
     </state>
-    <state x="859" y="305" width="840" height="1034" key="search.everywhere.popup/0.0.2560.1392@0.0.2560.1392" timestamp="1598596814462" />
+    <state x="859" y="305" width="840" height="1034" key="search.everywhere.popup/0.0.2560.1392@0.0.2560.1392" timestamp="1599204125775" />
   </component>
 </project>
