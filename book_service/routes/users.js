@@ -38,6 +38,7 @@ router.post('/login', function (req, res, next) {
         }
     })
 });
+
 //用户注册接口
 router.post('/register', function (req, res, next) {
     //验证完整性，这里使用简单的if方式，可以使用正则表达式对输入的格式进行验证
